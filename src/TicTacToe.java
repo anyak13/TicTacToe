@@ -35,6 +35,8 @@ public class TicTacToe
     private Square[][] board;
     private boolean isGameOver;
 
+    private TicTacToeViewer window;
+
     /**
      * Constructor which initialized the board with BLANKs.
      * The winner is also initialized to BLANK.
@@ -49,6 +51,7 @@ public class TicTacToe
                 this.board[row][col] = new Square(row, col);
             }
         }
+        this.window = new TicTacToeViewer(board);
 
         // Initialize winning stats variables
         this.isGameOver = false;
