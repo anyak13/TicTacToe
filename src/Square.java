@@ -19,10 +19,10 @@ public class Square {
     private int col;
     private boolean isWinningSquare;
 
-    Image oImage;
-    Image xImage;
+    private Image oImage;
+    private Image xImage;
 
-    private TicTacToeViewer view;
+    private TicTacToeView window;
 
     /**
      * Constructor to initialize one Square of the
@@ -30,10 +30,13 @@ public class Square {
      * @param row the row the square is in
      * @param col the column the square is in
      */
-    public Square(int row, int col) {
+    public Square(int row, int col, TicTacToeView window) {
         this.row = row;
         this.col = col;
 
+        this.window = window;
+        oImage = window.getImages()[0];
+        xImage = window.getImages()[1];
         this.marker = TicTacToe.BLANK;
         this.isWinningSquare = false;
     }
@@ -67,10 +70,27 @@ public class Square {
     }
 
     public void draw(Graphics g) {
-        if (marker.equals("o"))
-        {
-            g.drawImage(oImage, row, col, view);
+        int squareSize = 150;
+        if (marker.equals(TicTacToe.O_MARKER)) {
+            g.drawImage(oImage, 170+(squareSize*col), 225+(squareSize*row), 100, 100, window);
         }
-        g.drawImage(xImage, row, col, view);
+        else if (marker.equals(TicTacToe.X_MARKER))
+        {
+            g.drawImage(xImage, 170+(squareSize*col), 225+(squareSize*row), 100, 100, window);
+        }
+        if (marker.equals(TicTacToe.O_MARKER)) {
+            if (isWinningSquare) {
+                g.setColor(Color.green);
+                g.fillRect(150 + (squareSize * col), 200 + (squareSize * row), 150, 150);
+                g.drawImage(oImage, 170+(squareSize*col), 225+(squareSize*row), 100, 100, window);
+            }
+        }
+        if (marker.equals(TicTacToe.X_MARKER)) {
+            if (isWinningSquare) {
+                g.setColor(Color.green);
+                g.fillRect(150 + (squareSize * col), 200 + (squareSize * row), squareSize-1, squareSize-1);
+                g.drawImage(xImage, 170+(150*col), 225+(150*row), 100, 100, window);
+            }
+        }
     }
 }
